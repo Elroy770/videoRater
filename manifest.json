@@ -1,0 +1,22 @@
+{
+    "manifest_version": 3,
+    "name": "Video Rater",
+    "version": "1.0",
+    "description": "Rate videos speed-play",
+    "permissions": [
+        "storage"
+    ],
+    "action": {
+        "default_popup": "popup.html"
+    },
+    "content_scripts": [
+        {
+            "matches": [
+                "<all_urls>"
+            ],
+            "js": [
+                "content.js"
+            ]
+        }
+    ]
+}
