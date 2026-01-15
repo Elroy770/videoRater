@@ -103,3 +103,29 @@ window.addEventListener("pointerup", (e) => {
   } catch (err) {}
   emojiThumb.classList.remove("dragging");
 });
+// Keyboard navigation for precision and preventing video seeking
+document.addEventListener("keydown", (e) => {
+  if (e.key === "ArrowLeft" || e.key === "ArrowRight") {
+    // Prevent default browser behavior (scrolling/seeking)
+    e.preventDefault();
+    e.stopPropagation();
+
+    const step = parseFloat(speedSlider.step) || 0.25;
+    let currentValue = parseFloat(speedSlider.value);
+    const min = parseFloat(speedSlider.min);
+    const max = parseFloat(speedSlider.max);
+
+    if (e.key === "ArrowLeft") {
+      currentValue = Math.max(min, currentValue - step);
+    } else {
+      currentValue = Math.min(max, currentValue + step);
+    }
+
+    // Fix floating point precision
+    currentValue = Math.round(currentValue * 100) / 100;
+
+    speedSlider.value = currentValue;
+    updateUI(currentValue);
+    applySpeed(currentValue);
+  }
+});
